@@ -74,3 +74,51 @@ const internQuestions = [
         name: "github"
     },
 ];
+
+function addManager() {
+    inquirer.prompt(managerQuestions).then((answers) => {
+        const Manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+        teamMembers.push(manager);
+        createTeam();
+    });
+};
+function addEngineer() {
+    inquirer.prompt(engineerQuestions).then((answers) => {
+        const Engineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
+        teamMembers.push(engineer);
+        createTeam();
+    });
+};
+function addIntern() {
+    inquirer.prompt(internQuestions).then((answers) => {
+        const intern = new Intern(answers.name, answers.id, answers.email, answers.school)
+        teamMembers.push(intern);
+        createTeam();
+    });
+};
+function createTeam() {
+    inquirer.prompt({
+        type: 'list',
+        name: 'teamMember',
+        message: 'Which type of team member would you like to add?',
+        choices: [
+            'Engineer',
+            'Intern',
+            'I do not want to add anymore team members.'
+        ]
+    }).then((userChoice) => {
+        switch (userChoice.teamMember) {
+            case 'Engineer':
+                addEngineer()
+                break;
+            case 'Intern':
+                addIntern();
+                break;
+            default:
+                teamBuilder()
+        }
+    })
+};
+function teamBuilder() {}
+
+addManager();

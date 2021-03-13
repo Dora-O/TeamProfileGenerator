@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Dora-O/TeamProfileGenerator/issues"
   },
-  "homepage": "https://github.com/Dora-O/TeamProfileGenerator#readme"
+  "homepage": "https://github.com/Dora-O/TeamProfileGenerator#readme",
+  "dependencies": {
+    "inquirer": "^8.0.0"
+  }
 }
