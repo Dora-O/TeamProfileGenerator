@@ -3,6 +3,9 @@ const fs = require('fs');
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
+const util = require('util');
+
+const writeFileAsync = util.promisify(fs.writeFile);
 
 const teamMembers = [];
 
@@ -77,14 +80,14 @@ const internQuestions = [
 
 function addManager() {
     inquirer.prompt(managerQuestions).then((answers) => {
-        const Manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+        const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
         teamMembers.push(manager);
         createTeam();
     });
 };
 function addEngineer() {
     inquirer.prompt(engineerQuestions).then((answers) => {
-        const Engineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
+        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
         teamMembers.push(engineer);
         createTeam();
     });
@@ -119,6 +122,6 @@ function createTeam() {
         }
     })
 };
-function teamBuilder() {}
+function teamBuilder(){};
 
 addManager();
