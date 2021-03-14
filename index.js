@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const util = require('util');
+const path = require('path');
 
 const writeFileAsync = util.promisify(fs.writeFile);
 
@@ -91,7 +92,27 @@ function addManager() {
         teamMembers.push(manager);
         createTeam();
     });
-};
+    const renderManager = manager => {
+        const index = fs.readFileSync('./src/index.html', 'utf8');
+        let managerCard = fs.readFileSync('./src/manager.html', 'utf8');
+        managerCard = managerCard.replace('{{name}}', manager.getName());
+        managerCard = managerCard.replace('{{role}}', manager.getRole());
+        managerCard = managerCard.replace('{{id}}', manager.getId());
+        managerCard = managerCard.replace('{{email}}', manager.getEmail());
+        managerCard = managerCard.replace('{{officeNumber}}', manager.getOfficeNumber());
+
+        cards = managerCard;
+        for (var i = 0; i < team.length; i++) {
+            var employee = team[i];
+            // Cards adds and then equals every new employee card info.
+            cards += renderEmployee(employee);
+        }
+
+
+        // add cards into the html
+        index = index.replace(/{{cards}}/g, cards);
+    };
+}
 
 //function to add engineer to team 
 function addEngineer() {
@@ -137,6 +158,36 @@ function createTeam() {
 };
 
 //function to create index file with all team members
-function teamBuilder(){};
+function teamBuilder() {
+
+    const index = fs.readFileSync('./src/index.html', 'utf8');
+
+    fs.writeFile('./dist/index.html', index, function (err) {
+        if (err) throw err;
+        console.log('Congratualtions!!! Your Team is Full')
+        console.log('File index.html has been deployed!!');
+    });
+};
+
+const renderEmployee = (employee) => {
+    if (employee.getRole() === "Engineer") {
+        let engineerCard = fs.readFileSync('./src/engineer.html', 'utf8');
+        engineerCard = engineerCard.replace('{{name}}', employee.getName());
+        engineerCard = engineerCard.replace('{{role}}', employee.getRole());
+        engineerCard = engineerCard.replace('{{id}}', employee.getId());
+        engineerCard = engineerCard.replace('{{email}}', employee.getEmail());
+        engineerCard = engineerCard.replace('{{github}}', employee.getGithub());
+        return engineerCard;
+
+    } else if (employee.getRole() === "Intern") {
+        let internCard = fs.readFileSync('./src/intern.html', 'utf8');
+        internCard = internCard.replace('{{name}}', employee.getName());
+        internCard = internCard.replace('{{role}}', employee.getRole());
+        internCard = internCard.replace('{{id}}', employee.getId());
+        internCard = internCard.replace('{{email}}', employee.getEmail());
+        internCard = internCard.replace('{{school}}', employee.getSchool());
+        return internCard;
+    }
+}
 
 addManager();
