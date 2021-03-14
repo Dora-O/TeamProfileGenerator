@@ -1,14 +1,18 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const Manager = require("./lib/Manager");
-const Engineer = require("./lib/Engineer");
-const Intern = require("./lib/Intern");
 const util = require('util');
 
 const writeFileAsync = util.promisify(fs.writeFile);
 
+//employee classes
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+
+//empty array to store employees 
 const teamMembers = [];
 
+//questions for manager
 const managerQuestions = [
     {
         type: "input",
@@ -32,6 +36,7 @@ const managerQuestions = [
     },
 ];
 
+//questions for engineer
 const engineerQuestions = [
     {
         type: "input",
@@ -55,6 +60,7 @@ const engineerQuestions = [
     },
 ];
 
+//question for intern
 const internQuestions = [
     {
         type: "input",
@@ -78,6 +84,7 @@ const internQuestions = [
     },
 ];
 
+//manager function
 function addManager() {
     inquirer.prompt(managerQuestions).then((answers) => {
         const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
@@ -85,6 +92,8 @@ function addManager() {
         createTeam();
     });
 };
+
+//function to add engineer to team 
 function addEngineer() {
     inquirer.prompt(engineerQuestions).then((answers) => {
         const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
@@ -92,6 +101,8 @@ function addEngineer() {
         createTeam();
     });
 };
+
+//function to add intern to team 
 function addIntern() {
     inquirer.prompt(internQuestions).then((answers) => {
         const intern = new Intern(answers.name, answers.id, answers.email, answers.school)
@@ -99,6 +110,8 @@ function addIntern() {
         createTeam();
     });
 };
+
+//function to add members until user chooses to not add anymore 
 function createTeam() {
     inquirer.prompt({
         type: 'list',
@@ -122,6 +135,8 @@ function createTeam() {
         }
     })
 };
+
+//function to create index file with all team members
 function teamBuilder(){};
 
 addManager();
