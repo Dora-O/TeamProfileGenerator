@@ -12,7 +12,7 @@ describe("getRole", () => {
 describe("getGithub", () => {
     it("Returns github", () => {
         const gitHub = "Githubuser";
-        const data = new Engineer('Jarvis', 2, 'jarvis@mail.com');
+        const data = new Engineer('Jarvis', 2, 'jarvis@mail.com', gitHub);
         expect(data.getGithub()).toBe(gitHub);
     });
 });
