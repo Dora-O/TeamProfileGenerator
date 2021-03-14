@@ -9,4 +9,4 @@ User will need to access the main folder where index.js exists, run node index.j
 ## Walk Through Videos
 [NPM Run Tests](https://youtu.be/5M9841-Ie9U)
 
-[App Launch & HTML file](https://youtu.be/5M9841-Ie9U)
+[App Launch & HTML file](https://www.youtube.com/watch?v=GQsDzlJ7brE)
